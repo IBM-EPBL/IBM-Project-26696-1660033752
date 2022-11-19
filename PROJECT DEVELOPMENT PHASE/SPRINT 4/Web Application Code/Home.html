@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel = "icon" href = "Images/tce_logo.png" type = "image/x-icon"> 
+  <title>S Employees</title>
+  <link rel="stylesheet" href="Css/Home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+
+<body ng-app="TVS">
+
+<div class="wrapper">
+    <section class="users" id="section1">
+        <header>
+            <div class="content">
+                <div class="dropdownDP" ng-controller="ProfileController">
+                    <img src="Images/Profiles/{{dp_id}}.png" alt="My DP">
+                    <div class="dropdownDP-content">
+                        <h4 id="UserName">Name : My Name</h4>
+                        <h4 id="UserIdNo">Id : My Id</h4>
+                        <h4 id="UserDept">Department : My Department</h4>
+			            <center><button ng-click="generateRandom()" style="width: 100px;height: 25px;background-color: blue;color: white;"><h5>Set DP</h5><button></center>
+                    </div>
+                </div>
+                <div class="details">
+                    <span>My Name</span>
+                    <p>online</p>
+                </div>
+            </div>
+            <a href="BackEnd-Php/Login.html" class="logout">Logout</a>
+        </header>
+        <div class="users_area">
+            <div class="all_user_list" id="all_user_list">   
+                <div class="search">
+                    <div class="back-icon" onclick="HideAllUsersList()"><i class="fas fa-arrow-left"></i></div>
+                    <span class="text">Select an user to start chat</span>
+                    <input type="text" placeholder="Enter name to search...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="users-list">
+                    <a>No users available</a>
+                </div>
+            </div>
+            <div class="recent_user_list" id="recent_user_list" ng-controller="RecentUsersList">
+                <div class="users-list">
+                </br>
+                <a href="Home.html"  ng-repeat="x in Lists | orderBy:'name'">
+                    <div class="content">
+                        <div class="dropdownDP">
+                            <img src="Images/Profiles/1.jpg" alt="My DP">
+                                <div class="dropdownDP-content">
+                                    <h4 id="UserName">Name : {{x.name}}</h4>
+                                    <h4 id="UserIdNo">Id : {{x.id}}</h4>
+                                    <h4 id="UserDept">Department : {{x.dept}}</h4>
+                                    <h4 id="Userarea">area: {{x.year}}</h4>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <span>{{x.name}}</span>
+                                    <p>{{x.Message}}</p>
+                                </div>
+                                </div>
+                                <div class="status-dot offline"><i class="fas fa-circle"></i></div>
+                            </a>
+                </div>
+                <div id="plus_to_add" class="plus_to_add" onclick="ShowAllUsersList()">
+                    <p>+</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="chat_box" id="section2">
+        <div class="chat-area">
+            <header>
+                <a href="Home.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+                <div class="dropdownDP">
+                    <img src="Images/Profiles/1.jpg" alt="Selected User DP">
+                    <div class="dropdownDP-content">
+                        <h4 id="UserName">Name : TCE VS</h4>
+                        <h4 id="UserIdNo">Id : TCE</h4>
+                        <h4 id="UserDept">Department : TCE</h4>
+                        <h4 id="UserYear">Year : 1949</h4>
+                    </div>
+                </div>
+                <div class="details">
+                    <span>Employee Management login</span>
+                    <p>Group</p>
+                </div>
+            </header>
+            <div class="chat-box">
+                <div class="text" id="WelcomeMessage">Welcome</div>
+            </div>
+            
+            <form action="#" class="typing-area">
+                <input type="text" class="incoming_id" name="incoming_id" value="tvs" hidden>
+                <input type="text" name="message" class="input-field" placeholder="Type a message here..." autocomplete="off">
+                <button><i class="fab fa-telegram-plane"></i></button>
+            </form>
+        </div>
+    </section>
+</div>
+
+<div class="Clock" ng-controller="clock">
+<h3>{{ClockTime}}</h3>
+</div>
+
+<script>
+if(screen.width < screen.height) {
+    const queryString = window.location.search;
+    console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+    const user_id = urlParams.get('user_id');
+    if(user_id != null) {
+        var x = document.getElementById("section1");
+        var y = document.getElementById("section2");
+        x.style.display = "none";
+        y.style.display = "block";
+    }
+}
+function ShowAllUsersList() {
+    var rcl = document.getElementById("recent_user_list");
+    var acl = document.getElementById("all_user_list");
+    rcl.style.display = "none";
+    acl.style.display = "block";
+}
+function HideAllUsersList() {
+    var rcl = document.getElementById("recent_user_list");
+    var acl = document.getElementById("all_user_list");
+    rcl.style.display = "block";
+    acl.style.display = "none";  
+}
+
+var AJS_App = angular.module('TVS', []);
+AJS_App.controller('clock', function($scope, $interval) {
+  $scope.ClockTime = new Date().toLocaleTimeString();
+  $interval(function () {
+      $scope.ClockTime = new Date().toLocaleTimeString();
+  }, 1000);
+});
+
+AJS_App.controller('RecentUsersList', function($scope) {
+    $scope.Lists = [
+        {name:'sriram 1',Message:'no message available',id: '62001',dept: '', year: '2019'},
+        {name:'sriram 2',Message:'no message available',id: '62002',dept: '', year: '2019'},
+        {name:'shujat 3',Message:'no message available',id: '62003',dept: '', year: '2019'},
+        {name:'emp 4',Message:'no message available',id: '62004',dept: '', year: '2019'},
+        {name:'emp 5',Message:'no message available',id: '62005',dept: '', year: '2019'},
+        {name:'sriram 1',Message:'no message available',id: '62S001',dept: '', year: '2019'},
+        {name:'shujat 2',Message:'no message available',id: '62S002',dept: '', year: '2019'},
+        {name:'sriram 3',Message:'no message available',id: '62S003',dept: '', year: '2019'},
+        {name:'prasath 4',Message:'no message available',id: '62S004',dept: '', year: '2019'},
+        {name:'hussain 5',Message:'no message available',id: '62S004',dept: '', year: '2019'},
+        ];
+});
+
+AJS_App.factory('random', function() {
+            var randomObject = {};
+            var number = Math.floor(Math.random() * 5);
+            randomObject.generate = function() {
+                return number;
+            };
+            return randomObject;
+        });
+AJS_App.controller('ProfileController', function($scope, random) {
+            $scope.generateRandom = function() {
+                $scope.dp_id = random.generate();
+            };
+        });
+</script>
+</body>
+</html>

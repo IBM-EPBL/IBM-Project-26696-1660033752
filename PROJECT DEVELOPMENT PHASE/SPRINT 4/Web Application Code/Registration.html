@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel = "icon" href = "Images/tce_logo.png" type = "image/x-icon"> 
+  <title>employee management</title>
+  <link rel="stylesheet" href="Css/LoginRegistration.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="">
+  <div class="wrapper">
+    <section class="form signup">
+      <header><center>USER REGISTRATION</center></header>
+      <div class="slide-controls">
+           <input type="radio" name="slide" id="user"  onclick="change_register1()" checked>
+           <input type="radio" name="slide" id="patient"  onclick="change_register2()">
+           <label for="user" class="slide student_register">user</label>
+           <label for="patient" class="slide staff_register">patient</label>
+           <div class="slider-tab"></div>
+        </div>
+      <form action="#" method="POST" enctype="multipart/form-data" autocomplete="off">
+        <div class="error-text"></div>
+        <div  id="user_register">
+          <div class="name-details">
+            <div class="field input">
+              <label>Name</label>
+              <input type="text" name="name" ng-model="name" placeholder="Name" required>
+            </div>
+            <div class="field input">
+              <label>Roll No</label>
+              <input type="text" name="rollno" ng-model="id" placeholder="Roll No" required>
+            </div>
+          </div>
+          <div class="name-details">
+              <div class="field input">
+                  <label>Year</label>
+                  <select name="year" id="year">
+   
+                  </select>
+              </div>
+              <div class="field input">
+                  <label>Department</label>
+                  <select name="department" id="department" ng-model="department">
+                      <option value='Cardealogy'>Cardealogy</option>
+                      <option value='Child Specialist'>Child Specialist</option>
+                      <option value='Neurology'>Neurologytion>
+                      <option value='Medcine Department'>Medcine Department</option>
+                     
+                  </select>
+              </div>
+          </div>
+          <div class="field input">
+            <label>Email Address</label>
+            <input type="text" name="email" ng-model="mail" placeholder="Enter your  mail" required>
+          </div>
+          <div class="field input">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter new password" required>
+            <i class="fas fa-eye"></i>
+          </div>
+        </div>
+        <div id="patient_register">
+          <div class="name-details">
+            <div class="field input">
+              <label>Name</label>
+              <input type="text" name="s_name" ng-model="name" placeholder="Name" required>
+            </div>
+            <div class="field input">
+              <label>Staff Id</label>
+              <input type="text" name="staffid" ng-model="id" placeholder="Staff Id" required>
+            </div>
+          </div>
+          <div class="field input">
+              <label>Department</label>
+              <select name="s_department" id="s_department" ng-model="department">
+                  <option value='Cardealogy'>Cardealogy</option>
+                  <option value='Child Specialistg'>Child Specialist</option>
+                  <option value='Neurology'>Neurology</option>
+                  <option value='Admin Officer'>Admin Officer</option>
+                  <option value='Medcine Department'>Medcine Department</option>
+                  
+                  <option value='Others'>Others</option>
+              </select>
+          </div>
+          <div class="field input">
+            <label>Email Address</label>
+            <input type="text" name="s_email" ng-model="mail" placeholder="Enter your  mail" required>
+          </div>
+          <div class="field input">
+            <label>Password</label>
+            <input type="password" name="s_password" placeholder="Enter new password" required>
+            <i class="fas fa-eye"></i>
+          </div>
+        </div>
+        <div class="field button">
+            <input type="submit" name="submit" value="Register" onclick="document.getElementById('pu_id1').style.display='block'">
+        </div>
+      </form>
+      <div class="link">Already signed up? <a href="Login.html"><b style="color: blue;">Login now</b></a></div>
+    </section>
+  </div>
+
+  <div id="pu_id1" class="modal">
+    <div class="modal-content animate">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('pu_id1').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img src="Images/tce_logo.png" width="50" height="50">
+      </div>
+      <div class="container">
+        <h3>
+        Name : {{name}}</br></br>
+        Id : {{id}}</br></br>
+        Department : {{department}}</br></br>
+        Mail Id : {{mail}}</br><br></br>
+        </h3>
+        <p style="color:red;">Will you wish to Continue?</p>
+        <a href="Home.html"><button><b>Continue</b></button></a>
+        
+      </div>
+    </div>
+  </div>
+
+<script>
+FillYears();
+function change_register1() {
+    var x = document.getElementById("user_register");
+    var y = document.getElementById("patient_register");
+    var a = document.getElementsByClassName("slider-tab")[0];
+    var b = document.getElementsByClassName("slide")[0];
+    var c = document.getElementsByClassName("staff_register")[0];
+    x.style.display = "block";
+    y.style.display = "none";
+    a.style.left = 0;
+    b.style.color = "#fff";
+    c.style.color = "#000";
+}
+function change_register2() {
+    var x = document.getElementById("user_register");
+    var y = document.getElementById("patient_register");
+    var a = document.getElementsByClassName("slider-tab")[0];
+    var b = document.getElementsByClassName("slide")[0];
+    var c = document.getElementsByClassName("staff_register")[0];
+    x.style.display = "none";
+    y.style.display = "block";
+    a.style.left = "50%";
+    b.style.color = "#000";
+    c.style.color = "#fff";
+}
+function FillYears() {
+    var a;
+    for(i=1950;i<=2022;i++) {
+        var a = i+4;
+        document.getElementById("year").innerHTML += "<option value='"+i+" - "+a+"'>"+i+" - "+a+"</option>";
+    }
+}
+function PopUpClick() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+var modal = document.getElementById('pu_id1');
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>
